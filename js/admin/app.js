@@ -1,4 +1,4 @@
-import { Contacto } from './Contacto.js';
+import { añadirContacto } from './abm.js';
 import {
   validateEmail,
   validateImage,
@@ -18,80 +18,56 @@ const campoImagen = document.getElementById('input-imagen');
 const campoNotas = document.getElementById('input-notas');
 
 // -----------------------------------------
-// 2. Inicializacion de variables
-// -----------------------------------------
-
-let nombre = '';
-let numero = '';
-let email = '';
-let imagen = '';
-let notas = '';
-
-// -----------------------------------------
-// 3. Event listeners
+// 2. Event listeners
 // -----------------------------------------
 
 campoNombre.addEventListener('blur', (e) => {
   const value = e.target.value;
 
-//   console.log(campoNombre)
-
-  if (validateName(value, campoNombre)) {
-    nombre = value;
-  }
+  validateName(value, campoNombre);
 });
 
 campoNumero.addEventListener('blur', (e) => {
   const value = e.target.value;
 
-  if (validateNumber(value, campoNumero)) {
-    numero = value;
-  }
+  validateNumber(value, campoNumero);
 });
 
 campoEmail.addEventListener('blur', (e) => {
   const value = e.target.value;
 
-  if (validateEmail(value, campoEmail)) {
-    email = value;
-  }
+  validateEmail(value, campoEmail);
 });
 
 campoImagen.addEventListener('blur', (e) => {
   const value = e.target.value;
 
-  if (validateImage(value, campoImagen)) {
-    imagen = value;
-  }
-});
-
-campoNotas.addEventListener('blur', (e) => {
-  const value = e.target.value;
-
-  notas = value;
+  validateImage(value, campoImagen);
 });
 
 // -----------------------------------------
-// 4. Event listener del form
+// 3. Event listener del form
 // -----------------------------------------
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
+  // Extraemos los valores
+  const nombre = campoNombre.value;
+  const numero = campoNumero.value;
+  const email = campoEmail.value;
+  const imagen = campoImagen.value;
+  const notas = campoNotas.value;
+
   // Repetimos validacion por si no se produjo el blur
   if (
-    validateName(nombre,campoNombre) &&
-    validateNumber(numero,campoNumero) &&
-    validateEmail(email,campoEmail) &&
-    validateImage(imagen,campoImagen)
+    validateName(nombre, campoNombre) &&
+    validateNumber(numero, campoNumero) &&
+    validateEmail(email, campoEmail) &&
+    validateImage(imagen, campoImagen)
   ) {
     // Entra SOLAMENTE si TODAS son validas
-    // Crear el contacto
-    const nuevoContacto = new Contacto(nombre, numero, email, imagen, notas);
 
-    console.log('Contacto creado', '🙂');
-    console.log(nuevoContacto);
-
-    // guardar el contacto -> JSON & localStorage
+    añadirContacto(nombre, numero, email, imagen, notas);
   }
 });
