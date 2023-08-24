@@ -6,7 +6,11 @@ export const añadirContacto = (nombre, numero, email, imagen, notas) => {
 
   agregarContactoALS(nuevoContacto);
 
-  alert('Se agregó el contacto con exito');
+  swal.fire({
+    title: 'Exito',
+    text: 'Contacto agregado exitosamente',
+    icon: 'success',
+  });
 };
 
 export const editarContacto = () => {};

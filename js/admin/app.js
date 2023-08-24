@@ -1,4 +1,5 @@
 import { añadirContacto } from './abm.js';
+import { cargarTabla } from './adminUtils.js';
 import {
   validateEmail,
   validateImage,
@@ -7,7 +8,13 @@ import {
 } from './validators.js';
 
 // -----------------------------------------
-// 1. Seleccion de elementos
+// 1. Cargar datos en tabla
+// -----------------------------------------
+
+cargarTabla();
+
+// -----------------------------------------
+// 2. Seleccion de elementos
 // -----------------------------------------
 
 const form = document.getElementById('form-contacto');
@@ -18,7 +25,7 @@ const campoImagen = document.getElementById('input-imagen');
 const campoNotas = document.getElementById('input-notas');
 
 // -----------------------------------------
-// 2. Event listeners
+// 3. Event listeners
 // -----------------------------------------
 
 campoNombre.addEventListener('blur', (e) => {
@@ -46,7 +53,7 @@ campoImagen.addEventListener('blur', (e) => {
 });
 
 // -----------------------------------------
-// 3. Event listener del form
+// 4. Event listener del form
 // -----------------------------------------
 
 form.addEventListener('submit', (e) => {
@@ -69,6 +76,9 @@ form.addEventListener('submit', (e) => {
     // Entra SOLAMENTE si TODAS son validas
 
     añadirContacto(nombre, numero, email, imagen, notas);
+
+    // Recargar tabla
+    cargarTabla();
 
     // Vaciar campos
     form.reset();
