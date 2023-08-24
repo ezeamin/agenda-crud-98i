@@ -69,5 +69,14 @@ form.addEventListener('submit', (e) => {
     // Entra SOLAMENTE si TODAS son validas
 
     añadirContacto(nombre, numero, email, imagen, notas);
+
+    // Vaciar campos
+    form.reset();
+
+    // Resetear clases
+    campoNombre.classList.remove('is-valid', 'is-invalid');
+    campoNumero.classList.remove('is-valid', 'is-invalid');
+    campoEmail.classList.remove('is-valid', 'is-invalid');
+    campoImagen.classList.remove('is-valid', 'is-invalid');
   }
 });
