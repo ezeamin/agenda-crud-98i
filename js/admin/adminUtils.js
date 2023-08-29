@@ -1,3 +1,5 @@
+import { eliminarContacto } from './abm.js';
+
 export const obtenerContactosDeLS = () => {
   //   Traer contactos desde LS, PERO, si es null, que tome un valor por defecto ([])
   return JSON.parse(localStorage.getItem('contactos')) || [];
@@ -74,12 +76,11 @@ export const crearFilaTabla = (contacto, indice) => {
   btnEliminar.innerText = 'Eliminar';
 
   btnEditar.onclick = () => {
-    // console.log(`Editar ${contacto.codigo}`);
     prepararEdicionContacto(contacto.codigo);
   };
 
   btnEliminar.onclick = () => {
-    console.log(`Eliminar ${contacto.codigo}`);
+    eliminarContacto(contacto.codigo);
   };
 
   tdBotones.appendChild(btnEditar);
