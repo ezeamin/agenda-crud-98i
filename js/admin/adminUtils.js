@@ -44,7 +44,7 @@ export const crearFilaTabla = (contacto, indice) => {
   // NUMERO
 
   const tdNumero = document.createElement('td');
-  tdNumero.innerText = contacto.telefono;
+  tdNumero.innerText = contacto.numero;
   tr.appendChild(tdNumero);
 
   // EMAIL
@@ -74,7 +74,8 @@ export const crearFilaTabla = (contacto, indice) => {
   btnEliminar.innerText = 'Eliminar';
 
   btnEditar.onclick = () => {
-    console.log(`Editar ${contacto.codigo}`);
+    // console.log(`Editar ${contacto.codigo}`);
+    prepararEdicionContacto(contacto.codigo);
   };
 
   btnEliminar.onclick = () => {
@@ -100,6 +101,46 @@ export const cargarTabla = () => {
 
   // Cargar tabla
   contactos.forEach((contacto, indice) => {
-    crearFilaTabla(contacto, indice);
+    crearFilaTabla(contacto, indice + 1);
   });
+};
+
+const prepararEdicionContacto = (codigo) => {
+  // 1. Traer lista
+  const contactos = obtenerContactosDeLS();
+
+  // 2. Buscar el contacto a editar
+  // const contactoSeleccionado = contactos.find(item => {
+  //   return item.codigo === codigo;
+  // });
+  const contactoSeleccionado = contactos.find((item) => item.codigo === codigo);
+
+  // 3. Seleccionar los elementos (campos)
+  const campoNombre = document.getElementById('input-nombre');
+  const campoNumero = document.getElementById('input-numero');
+  const campoEmail = document.getElementById('input-email');
+  const campoImagen = document.getElementById('input-imagen');
+  const campoNotas = document.getElementById('input-notas');
+
+  // 4. Cargar los datos en el formulario
+  campoNombre.value = contactoSeleccionado.nombre;
+  campoNumero.value = contactoSeleccionado.numero;
+  campoEmail.value = contactoSeleccionado.email;
+  campoImagen.value = contactoSeleccionado.imagen;
+  campoNotas.value = contactoSeleccionado.notas;
+
+  // 5. Guardar codigo
+  sessionStorage.setItem('codigoContacto', codigo);
+};
+
+export const estaEditando = () => {
+  const codigo = sessionStorage.getItem('codigoContacto');
+
+  if (codigo === null) {
+    return false;
+  } else {
+    return true;
+  }
+
+  // return !!codigo;
 };

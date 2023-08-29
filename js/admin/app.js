@@ -1,5 +1,5 @@
-import { añadirContacto } from './abm.js';
-import { cargarTabla } from './adminUtils.js';
+import { añadirContacto, editarContacto } from './abm.js';
+import { cargarTabla, estaEditando } from './adminUtils.js';
 import {
   validateEmail,
   validateImage,
@@ -19,7 +19,7 @@ cargarTabla();
 
 const form = document.getElementById('form-contacto');
 const campoNombre = document.getElementById('input-nombre');
-const campoNumero = document.getElementById('input-telefono');
+const campoNumero = document.getElementById('input-numero');
 const campoEmail = document.getElementById('input-email');
 const campoImagen = document.getElementById('input-imagen');
 const campoNotas = document.getElementById('input-notas');
@@ -75,7 +75,11 @@ form.addEventListener('submit', (e) => {
   ) {
     // Entra SOLAMENTE si TODAS son validas
 
-    añadirContacto(nombre, numero, email, imagen, notas);
+    if (estaEditando()) {
+      editarContacto(nombre, numero, email, imagen, notas);
+    } else {
+      añadirContacto(nombre, numero, email, imagen, notas);
+    }
 
     // Recargar tabla
     cargarTabla();
