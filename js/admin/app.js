@@ -8,13 +8,23 @@ import {
 } from './validators.js';
 
 // -----------------------------------------
-// 1. Cargar datos en tabla
+// 1. Proteger ruta
+// -----------------------------------------
+
+const estaLogueado = JSON.parse(sessionStorage.getItem('estaLogueado'));
+if (!estaLogueado) {
+  // No deberia poder ver la página
+  window.location.href = './login.html';
+}
+
+// -----------------------------------------
+// 2. Cargar datos en tabla
 // -----------------------------------------
 
 cargarTabla();
 
 // -----------------------------------------
-// 2. Seleccion de elementos
+// 3. Seleccion de elementos
 // -----------------------------------------
 
 const form = document.getElementById('form-contacto');
@@ -25,7 +35,7 @@ const campoImagen = document.getElementById('input-imagen');
 const campoNotas = document.getElementById('input-notas');
 
 // -----------------------------------------
-// 3. Event listeners
+// 4. Event listeners
 // -----------------------------------------
 
 campoNombre.addEventListener('blur', (e) => {
@@ -53,7 +63,7 @@ campoImagen.addEventListener('blur', (e) => {
 });
 
 // -----------------------------------------
-// 4. Event listener del form
+// 5. Event listener del form
 // -----------------------------------------
 
 form.addEventListener('submit', (e) => {

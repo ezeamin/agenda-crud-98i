@@ -2,13 +2,23 @@ import { User, UserWithoutPassword } from './User.js';
 import { validatePassword, validateUsername } from './validators.js';
 
 // -----------------------------------------
-// 1. Crear usuario por defecto
+// 1. Proteger ruta
+// -----------------------------------------
+
+const estaLogueado = JSON.parse(sessionStorage.getItem('estaLogueado'));
+if (estaLogueado) {
+  // No deberia poder ver la página
+  window.location.href = './admin.html';
+}
+
+// -----------------------------------------
+// 2. Crear usuario por defecto
 // -----------------------------------------
 
 const usuarioAdmin = new User('admin', 'admin', 'admin@gmail.com');
 
 // -----------------------------------------
-// 2. Seleccionar elementos del DOM
+// 3. Seleccionar elementos del DOM
 // -----------------------------------------
 
 const formLogin = document.getElementById('form-login');
@@ -17,7 +27,7 @@ const campoContraseña = document.getElementById('input-contraseña');
 const alertCredenciales = document.getElementById('alert-login');
 
 // -----------------------------------------
-// 3. Manejar el submit
+// 4. Manejar el submit
 // -----------------------------------------
 
 formLogin.addEventListener('submit', (e) => {
