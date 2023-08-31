@@ -1,8 +1,8 @@
+import { obtenerContactosDeLS } from '../utils.js';
 import { Contacto } from './Contacto.js';
 import {
   agregarContactoALS,
   cargarTabla,
-  obtenerContactosDeLS,
 } from './adminUtils.js';
 
 export const añadirContacto = (nombre, numero, email, imagen, notas) => {

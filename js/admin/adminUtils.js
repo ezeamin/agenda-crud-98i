@@ -1,9 +1,5 @@
+import { obtenerContactosDeLS, ordenarLista } from '../utils.js';
 import { eliminarContacto } from './abm.js';
-
-export const obtenerContactosDeLS = () => {
-  //   Traer contactos desde LS, PERO, si es null, que tome un valor por defecto ([])
-  return JSON.parse(localStorage.getItem('contactos')) || [];
-};
 
 export const agregarContactoALS = (nuevoContacto) => {
   const contactos = obtenerContactosDeLS();
@@ -94,7 +90,7 @@ export const crearFilaTabla = (contacto, indice) => {
 };
 
 export const cargarTabla = () => {
-  const contactos = obtenerContactosDeLS();
+  const contactos = ordenarLista(obtenerContactosDeLS());
 
   // Vaciar tabla
   const tbody = document.getElementById('tbody-contactos');
