@@ -1,4 +1,10 @@
-import { validateName, validateNumber } from './validators.js';
+import { agregarContacto } from './abm.js';
+import {
+  validateEmail,
+  validateName,
+  validateNumber,
+  validateUrl,
+} from './validators.js';
 
 // ---------------------------------
 // 1. Seleccionar elementos
@@ -18,19 +24,25 @@ const $inputNotas = document.getElementById('input-notas');
 $form.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  //   const nombre = $inputNombre.value;
-  //   const numero = $inputNumero.value;
-  //   const email = $inputEmail.value;
-  //   const imagen = $inputImagen.value;
-  //   const notas = $inputNotas.value;
+  // A. Validar los campos
 
-  //   if (!nombre || !numero || !email || !imagen) {
-  //     alert('No ingresó alguno de los campos requeridos');
-  //     return;
-  //   }
-
-  if (!validateName($inputNombre) || !validateNumber($inputNumero)) {
+  if (
+    !validateName($inputNombre) ||
+    !validateNumber($inputNumero) ||
+    !validateEmail($inputEmail) ||
+    !validateUrl($inputImagen)
+  ) {
     alert('Revisá los campos');
     return;
   }
+
+  // B. Todo OK, conseguir valores
+
+  const nombre = $inputNombre.value;
+  const numero = $inputNumero.value;
+  const email = $inputEmail.value;
+  const imagen = $inputImagen.value;
+  const notas = $inputNotas.value;
+
+  agregarContacto(nombre, numero, email, imagen, notas);
 });
