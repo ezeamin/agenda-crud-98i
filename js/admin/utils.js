@@ -1,4 +1,5 @@
 import { obtenerContactosDeLS } from '../utils.js';
+import { eliminarContacto } from './abm.js';
 
 export const agregarContactoALS = (contacto) => {
   // 1. Traemos desde LS lo que haya guardado
@@ -81,7 +82,7 @@ const cargarFilaTabla = (contacto, indice) => {
     console.log(`Editando contacto ${contacto.nombre}`);
   };
   $btnEliminar.onclick = () => {
-    console.log(`Eliminando contacto ${contacto.nombre}`);
+    eliminarContacto(contacto.codigo, contacto.nombre);
   };
   $tdAcciones.appendChild($btnEditar);
   $tdAcciones.appendChild($btnEliminar);

@@ -79,10 +79,17 @@ $form.addEventListener('submit', (event) => {
   $inputImagen.classList.remove('is-valid', 'is-invalid');
 
   // D. Actualizar tabla
-  
+
   cargarTabla();
 
   // E. Notificar al usuario
 
-  alert(`Contacto creado bajo el nombre de ${nombre}`);
+  swal.fire({
+    title: 'Exito',
+    text: `Contacto creado bajo el nombre de ${nombre}`,
+    icon: 'success',
+    showConfirmButton: true,
+    showCancelButton: false,
+    confirmButtonText: 'Tremen2',
+  });
 });

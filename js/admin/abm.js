@@ -1,5 +1,6 @@
+import { obtenerContactosDeLS } from '../utils.js';
 import { Contacto } from './Contacto.js';
-import { agregarContactoALS } from './utils.js';
+import { agregarContactoALS, cargarTabla } from './utils.js';
 
 export const agregarContacto = (nombre, numero, email, imagen, notas) => {
   const contacto = new Contacto(nombre, numero, email, imagen, notas);
@@ -9,4 +10,43 @@ export const agregarContacto = (nombre, numero, email, imagen, notas) => {
 
 export const editarContacto = () => {};
 
-export const eliminarContacto = () => {};
+export const eliminarContacto = (idContacto, nombreContacto) => {
+  // 1. CONFIRMAR que se desea eliminar el contacto
+  swal
+    .fire({
+      title: 'Atención',
+      text: `¿Estás seguro que deseas eliminar el contacto de ${nombreContacto}? Esta acción es irreversible.`,
+      icon: 'warning',
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'No, cancelar',
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        // 2. Obtener el listado de contactos
+        const contactos = obtenerContactosDeLS();
+
+        // 3. Filtrar esa lista para eliminar el contacto con id indicado
+        const nuevosContactos = contactos.filter((contacto) => {
+          return contacto.codigo !== idContacto;
+        });
+
+        // 4. Actualizar lista en LS
+        localStorage.setItem('contactos', JSON.stringify(nuevosContactos));
+
+        // 5. Actualizar la tabla
+        cargarTabla();
+
+        // 6. Notificar al usuario del exito
+        swal.fire({
+          title: 'Exito',
+          text: `Contacto ${nombreContacto} eliminado correctamente`,
+          icon: 'success',
+          showConfirmButton: true,
+          showCancelButton: false,
+          confirmButtonText: 'Tremen2',
+        });
+      }
+    });
+};
