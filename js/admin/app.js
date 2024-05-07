@@ -1,4 +1,5 @@
 import { agregarContacto } from './abm.js';
+import { cargarTabla } from './utils.js';
 import {
   validateEmail,
   validateName,
@@ -7,7 +8,13 @@ import {
 } from './validators.js';
 
 // ---------------------------------
-// 1. Seleccionar elementos
+// 1. Cargar tabla
+// ---------------------------------
+
+cargarTabla();
+
+// ---------------------------------
+// 2. Seleccionar elementos
 // ---------------------------------
 
 const $form = document.getElementById('form-contacto');
@@ -18,7 +25,7 @@ const $inputImagen = document.getElementById('input-imagen');
 const $inputNotas = document.getElementById('input-notas');
 
 // ---------------------------------
-// 2. Event listeners del blur
+// 3. Event listeners del blur
 // ---------------------------------
 
 $inputNombre.addEventListener('blur', () => {
@@ -35,7 +42,7 @@ $inputImagen.addEventListener('blur', () => {
 });
 
 // ---------------------------------
-// 3. Event listener del submit
+// 4. Event listener del submit
 // ---------------------------------
 
 $form.addEventListener('submit', (event) => {
@@ -71,7 +78,18 @@ $form.addEventListener('submit', (event) => {
   $inputEmail.classList.remove('is-valid', 'is-invalid');
   $inputImagen.classList.remove('is-valid', 'is-invalid');
 
-  // D. Notificar al usuario
+  // D. Actualizar tabla
 
-  alert(`Contacto creado bajo el nombre de ${nombre}`);
+  cargarTabla();
+
+  // E. Notificar al usuario
+
+  swal.fire({
+    title: 'Exito',
+    text: `Contacto creado bajo el nombre de ${nombre}`,
+    icon: 'success',
+    showConfirmButton: true,
+    showCancelButton: false,
+    confirmButtonText: 'Tremen2',
+  });
 });
