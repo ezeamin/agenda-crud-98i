@@ -1,5 +1,5 @@
-import { agregarContacto } from './abm.js';
-import { cargarTabla } from './utils.js';
+import { agregarContacto, editarContacto } from './abm.js';
+import { cargarTabla, estaEditando } from './utils.js';
 import {
   validateEmail,
   validateName,
@@ -68,7 +68,11 @@ $form.addEventListener('submit', (event) => {
   const imagen = $inputImagen.value;
   const notas = $inputNotas.value;
 
-  agregarContacto(nombre, numero, email, imagen, notas);
+  if (estaEditando()) {
+    editarContacto(nombre, numero, email, imagen, notas);
+  } else {
+    agregarContacto(nombre, numero, email, imagen, notas);
+  }
 
   // C. Resetear formulario
 
@@ -84,9 +88,12 @@ $form.addEventListener('submit', (event) => {
 
   // E. Notificar al usuario
 
+  let mensaje = `Contacto creado bajo el nombre de ${nombre}`;
+  if (estaEditando()) mensaje = 'Contacto editado exitosamente';
+
   swal.fire({
     title: 'Exito',
-    text: `Contacto creado bajo el nombre de ${nombre}`,
+    text: mensaje,
     icon: 'success',
     showConfirmButton: true,
     showCancelButton: false,
