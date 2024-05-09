@@ -79,7 +79,7 @@ const cargarFilaTabla = (contacto, indice) => {
   $btnEditar.textContent = 'Editar';
   $btnEliminar.textContent = 'Eliminar';
   $btnEditar.onclick = () => {
-    console.log(`Editando contacto ${contacto.nombre}`);
+    prepararEdicionContacto(contacto);
   };
   $btnEliminar.onclick = () => {
     eliminarContacto(contacto.codigo, contacto.nombre);
@@ -104,4 +104,44 @@ export const cargarTabla = () => {
     // Crear fila para este elemento
     cargarFilaTabla(contacto, indice + 1);
   });
+};
+
+// Objetivo: Cargar en el formulario estos datos
+export const prepararEdicionContacto = (contacto) => {
+  // 1. Seleccionar los nodos de los inputs
+  const $inputNombre = document.getElementById('input-nombre');
+  const $inputNumero = document.getElementById('input-numero');
+  const $inputEmail = document.getElementById('input-email');
+  const $inputImagen = document.getElementById('input-imagen');
+  const $inputNotas = document.getElementById('input-notas');
+
+  // 2. Cargar la info
+  $inputNombre.value = contacto.nombre;
+  $inputNumero.value = contacto.numero;
+  $inputEmail.value = contacto.email;
+  $inputImagen.value = contacto.imagen;
+  $inputNotas.value = contacto.notas;
+
+  // 3. Guardar código
+  sessionStorage.setItem('codigoContacto', contacto.codigo);
+
+  // 4. Mostrar alert
+  const $alert = document.getElementById('alert-edicion-contacto');
+  const $spanContacto = document.getElementById('nombre-contacto-edicion');
+  $alert.classList.remove('d-none');
+  $spanContacto.textContent = contacto.nombre;
+
+  // 5. Mostrar boton
+  const $button = document.getElementById('button-cancelar');
+  $button.classList.remove('d-none');
+
+  // TODO: Agregar event listener al botón para deshacer la edicion de un contacto (eliminar el cod de SS, vaciar los campos, resetear las clases,esconder alert, esconder boton)
+};
+
+export const estaEditando = () => {
+  // El usuario está editando cuando existe un "codigoContacto" en sessionStorage
+  // const codigo = sessionStorage.getItem('codigoContacto');
+  // if (codigo) return true;
+  // return false;
+  return !!sessionStorage.getItem('codigoContacto');
 };

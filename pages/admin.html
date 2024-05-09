@@ -65,6 +65,10 @@
       <h1>Cargar contacto</h1>
       <hr />
       <section class="bg-secondary p-3 rounded text-light">
+        <article id="alert-edicion-contacto" class="alert alert-warning d-none">
+          Atencion: estás editando el contacto
+          <span id="nombre-contacto-edicion"></span>
+        </article>
         <form id="form-contacto">
           <fieldset class="mb-2">
             <label for="input-nombre" class="form-label">Nombre</label>
@@ -120,6 +124,13 @@
           </fieldset>
           <div class="text-end mt-3">
             <button type="submit" class="btn btn-danger">Guardar</button>
+            <button
+              id="button-cancelar"
+              type="button"
+              class="d-none btn btn-secondary"
+            >
+              Cancelar edicion
+            </button>
           </div>
         </form>
       </section>
