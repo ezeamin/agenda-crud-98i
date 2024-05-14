@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
@@ -22,7 +22,7 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <!-- <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <header>
@@ -63,14 +63,19 @@
           Las credenciales no coinciden con nuestros registros.
         </div>
         <fieldset>
-          <label for="input-usuario" class="form-label">Usuario</label>
-          <input type="text" id="input-usuario" class="form-control" />
-          <!-- <div class="invalid-feedback">Ingrese un usuario valido</div> -->
+          <label for="input-usuario" class="form-label">Email</label>
+          <input
+            type="text"
+            id="input-usuario"
+            class="form-control"
+            placeholder="hola@ejemplo.com"
+          />
+          <div class="invalid-feedback">Ingrese un usuario valido</div>
         </fieldset>
         <fieldset class="mt-2">
           <label for="input-contraseña" class="form-label">Contraseña</label>
           <input type="password" id="input-contraseña" class="form-control" />
-          <!-- <div class="invalid-feedback">Ingrese una contraseña valida</div> -->
+          <div class="invalid-feedback">Ingrese una contraseña valida</div>
         </fieldset>
         <div class="text-end mt-3">
           <button type="submit" class="btn btn-primary">Iniciar sesion</button>
@@ -82,5 +87,6 @@
         <p>&copy; Todos los derechos reservados</p>
       </section>
     </footer>
+    <script type="module" src="../js/login/app.js"></script>
   </body>
 </html>
