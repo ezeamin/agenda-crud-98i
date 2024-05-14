@@ -5,16 +5,25 @@ import {
   validateName,
   validateNumber,
   validateUrl,
-} from './validators.js';
+} from '../validators.js';
+import { estaLogueado } from '../utils.js';
+
+// ----------------------------------
+// 1. Protección de ruta
+// ----------------------------------
+
+if (!estaLogueado()) {
+  window.location.replace('/pages/login.html');
+}
 
 // ---------------------------------
-// 1. Cargar tabla
+// 2. Cargar tabla
 // ---------------------------------
 
 cargarTabla();
 
 // ---------------------------------
-// 2. Seleccionar elementos
+// 3. Seleccionar elementos
 // ---------------------------------
 
 const $form = document.getElementById('form-contacto');
@@ -25,7 +34,7 @@ const $inputImagen = document.getElementById('input-imagen');
 const $inputNotas = document.getElementById('input-notas');
 
 // ---------------------------------
-// 3. Event listeners del blur
+// 4. Event listeners del blur
 // ---------------------------------
 
 $inputNombre.addEventListener('blur', () => {
@@ -42,7 +51,7 @@ $inputImagen.addEventListener('blur', () => {
 });
 
 // ---------------------------------
-// 4. Event listener del submit
+// 5. Event listener del submit
 // ---------------------------------
 
 $form.addEventListener('submit', (event) => {

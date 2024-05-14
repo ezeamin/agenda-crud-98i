@@ -1,14 +1,23 @@
+import { estaLogueado } from '../utils.js';
 import { validateEmail, validatePassword } from '../validators.js';
 import { Usuario } from './Contacto.js';
 
 // ----------------------------------
-// 1. Crear un usuario por defecto
+// 1. Protección de ruta
+// ----------------------------------
+
+if (estaLogueado()) {
+  window.location.replace('/pages/admin.html');
+}
+
+// ----------------------------------
+// 2. Crear un usuario por defecto
 // ----------------------------------
 
 const usuarioPorDefecto = new Usuario('admin@admin.com', 'admin');
 
 // ----------------------------------
-// 2. Seleccion de elementos
+// 3. Seleccion de elementos
 // ----------------------------------
 
 const $inputEmail = document.getElementById('input-usuario');
@@ -17,7 +26,7 @@ const $form = document.getElementById('form-login');
 const $alertCredenciales = document.getElementById('alert-login');
 
 // ----------------------------------
-// 3. Event listener del submit
+// 4. Event listener del submit
 // ----------------------------------
 
 $form.addEventListener('submit', (e) => {
